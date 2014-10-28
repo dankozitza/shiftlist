@@ -1,6 +1,11 @@
 package shiftlist
 
-type Shiftlist struct {
+import (
+	//"fmt"
+	//"github.com/dankozitza/seestack"
+)
+
+type ShiftList struct {
 	truelist []interface{}
 	MaxIndex int
 	NumEntries int
@@ -9,13 +14,15 @@ type Shiftlist struct {
 	Full bool
 }
 
-func New(max int) Shiftlist {
-	shl := Shiftlist{make([]interface{}, max + 1), max, 0, 0, -1, false}
-	shl.MaxIndex = max
+func New(max int) ShiftList {
+	if (max <= 0) {
+		max = 100
+	}
+	shl := ShiftList{make([]interface{}, max + 1), max, 0, 0, -1, false}
 	return shl
 }
 
-func (shl *Shiftlist) Add(val interface{}) {
+func (shl *ShiftList) Add(val interface{}) {
 
 	shl.newest++
 
@@ -34,14 +41,20 @@ func (shl *Shiftlist) Add(val interface{}) {
 		}
 	}
 
+	//fmt.Println(seestack.Short(),
+	//	"shl.newest:", shl.newest, "shl.MaxIndex:", shl.MaxIndex)
+	//fmt.Println(seestack.Short(), "shl:")
+	//fmt.Println(shl)
+
+
 	shl.truelist[shl.newest] = val
 }
 
-func (shl *Shiftlist) Get(i int) interface{} {
+func (shl *ShiftList) Get(i int) interface{} {
 	return shl.truelist[shl.shiftindex(i)]
 }
 
-func (shl *Shiftlist) shiftindex(i int) int {
+func (shl *ShiftList) shiftindex(i int) int {
 	var n int
 
 	n = i + shl.oldest
@@ -51,7 +64,7 @@ func (shl *Shiftlist) shiftindex(i int) int {
 	}
 
 	if (n > shl.MaxIndex || 0 > shl.MaxIndex) {
-		panic("Shiftlist: error index out of range!: " + string(n))
+		panic("ShiftList: error index out of range!: " + string(n))
 	}
 
 	return n
