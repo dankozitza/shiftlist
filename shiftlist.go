@@ -1,8 +1,8 @@
 package shiftlist
 
 import (
-	//"fmt"
-	//"github.com/dankozitza/seestack"
+	"fmt"
+	"github.com/dankozitza/seestack"
 )
 
 type ShiftList struct {
@@ -14,12 +14,11 @@ type ShiftList struct {
 	Full bool
 }
 
-func New(max int) ShiftList {
+func New(max int) *ShiftList {
 	if (max <= 0) {
 		max = 100
 	}
-	shl := ShiftList{make([]interface{}, max + 1), max, 0, 0, -1, false}
-	return shl
+	return &ShiftList{make([]interface{}, max + 1), max, 0, 0, -1, false}
 }
 
 func (shl *ShiftList) Add(val interface{}) {
@@ -42,12 +41,11 @@ func (shl *ShiftList) Add(val interface{}) {
 	}
 
 	//fmt.Println(seestack.Short(),
-	//	"shl.newest:", shl.newest, "shl.MaxIndex:", shl.MaxIndex)
-	//fmt.Println(seestack.Short(), "shl:")
-	//fmt.Println(shl)
-
-
+		//"before shl:", shl)
 	shl.truelist[shl.newest] = val
+	//fmt.Println(seestack.Short(),
+		//"after shl:", shl)
+
 }
 
 func (shl *ShiftList) Get(i int) interface{} {
