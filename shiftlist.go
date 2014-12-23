@@ -1,7 +1,6 @@
 package shiftlist
 
 import (
-	"bytes"
 	"fmt"
 )
 
@@ -77,8 +76,5 @@ func (shl *ShiftList) GetArray() []interface{} {
 
 func (shl *ShiftList) String() string {
 
-	var buff bytes.Buffer
-	fmt.Fprint(&buff, shl.GetArray())
-
-	return buff.String()
+	return fmt.Sprint(shl.GetArray())
 }
