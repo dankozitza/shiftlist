@@ -13,6 +13,10 @@ type ShiftList struct {
 	Full       bool
 }
 
+// New
+//
+// Creates a new shiftlist and returns a pointer.
+//
 func New(max int) *ShiftList {
 	if max < 0 {
 		max = 100
@@ -20,6 +24,13 @@ func New(max int) *ShiftList {
 	return &ShiftList{make([]interface{}, max+1), max, 0, 0, -1, false}
 }
 
+// Add
+//
+// Adds an element to the shiftlist. The element is appended to the end of the
+// list. If the list is full the first element in the list is deleted and all
+// other elements are shifted up one index so that the new element can be placed
+// in the last index.
+//
 func (shl *ShiftList) Add(val interface{}) {
 
 	if shl.NumEntries <= shl.MaxIndex {
@@ -43,6 +54,10 @@ func (shl *ShiftList) Add(val interface{}) {
 	shl.truelist[shl.newest] = val
 }
 
+// Get
+//
+// Returns a copy of the element at index i.
+//
 func (shl *ShiftList) Get(i int) interface{} {
 	return shl.truelist[shl.shiftindex(i)]
 }
@@ -63,6 +78,10 @@ func (shl *ShiftList) shiftindex(i int) int {
 	return n
 }
 
+// GetArray
+//
+// Returns a copy of the shiftlist as an interface array.
+//
 func (shl *ShiftList) GetArray() []interface{} {
 
 	a := make([]interface{}, shl.NumEntries)
